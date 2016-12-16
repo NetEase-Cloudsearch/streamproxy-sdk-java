@@ -6,12 +6,12 @@ import com.netease.cloud.util.json.JSONObject;
 
 public class StreamProxySample {
 
-    private static String accessKey = "4ed7b756f11f4c1983ab897a48af91ec";
-    private static String secretKey = "1ca9a1ba8ec24348a54a9f49101c69b7";
+    private static String accessKey = "1a51246df23424c957819f0d97e5d5c";
+    private static String secretKey = "41121a691234248113420f674efb00";
 
     public static void main(String[] args) throws Exception {
 
-        String subscriptionName = "test201612121010.statetest-combloghzx";
+        String subscriptionName = "test201612151903.de342lt-wm3zq";
         String positionType = "EARLIEST";
         StreamProxyClient client = null;
 
@@ -21,14 +21,14 @@ public class StreamProxySample {
             String ret = client.getSubscriptionPosition(positionType, subscriptionName);
             System.out.println(ret);
 
-            // get needed logs
+            // get subscription logs
             JSONObject retObject = new JSONObject(ret);
             String logsPosition = retObject.getJSONObject("result").getString("position");
-            long limit = 1;
+            long limit = 10;
             String logs = client.getLogs(logsPosition, limit, subscriptionName);
             System.out.println(logs);
 
-            // cal number of needs logs
+            // cal number of subscription logs
             JSONObject logsObject = new JSONObject(logs);
             JSONArray subscription_logs =
                     logsObject.getJSONObject("result").getJSONArray("subscription_logs");

@@ -4,6 +4,29 @@
 	<groupId>com.netease.cloud</groupId>
 	<artifactId>streamproxy-sdk-java</artifactId>
 	<version>0.1</version>
+	<name>com.netease.cloud:streamproxy-sdk-java</name>
+	<description>Streamproxy SDK Java</description>
+	<url>https://github.com/NetEase-Cloudsearch/streamproxy-sdk-java</url>
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>hzhuangzhenxi</name>
+			<email>hzhuangzhenxi@corp.netease.com</email>
+			<organization>netease</organization>
+			<organizationUrl>http://www.163.com/</organizationUrl>
+		</developer>
+	</developers>
+	<scm>
+		<connection>https://github.com/NetEase-Cloudsearch/streamproxy-sdk-java.git</connection>
+		<developerConnection>https://github.com/NetEase-Cloudsearch/streamproxy-sdk-java.git</developerConnection>
+		<url>https://github.com/NetEase-Cloudsearch/streamproxy-sdk-java</url>
+		<tag>v0.1</tag>
+	</scm>
 	<build>
 		<defaultGoal>compile</defaultGoal>
 		<plugins>
@@ -54,4 +77,65 @@
 			<version>1.2.17</version>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<!-- Source -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Javadoc -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- GPG -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
 </project>

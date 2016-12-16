@@ -51,13 +51,19 @@ public class StreamProxyClient extends DefaultClient implements StreamProxy {
         super(new ClientConfiguration());
         this.CredentialsProvider =
                 new StaticCredentialsProvider(new BasicCredentials(accessKey, secretKey));
-        init();
     }
 
-    private void init() {
-        setEndpoint(PropertiesUtils.getStreamsProxyHost());
+    /**
+     * set streams proxy host
+     * 
+     * @param subscriptionName subscription name.
+     */
+    private void initStreamsProxyHost(String subscriptionName) {
+        // online enviroment
+        setEndpoint(subscriptionName + "." + PropertiesUtils.getStreamsProxyHost());
+        // test enviroment
+        //setEndpoint(PropertiesUtils.getStreamsProxyHost());
     }
-
 
     /**
      * execute request; send request and get respone.
@@ -88,13 +94,14 @@ public class StreamProxyClient extends DefaultClient implements StreamProxy {
     public String getSubscriptionPosition(String positionType, String subscriptionName)
             throws ClientException, ServiceException {
 
+        initStreamsProxyHost(subscriptionName);
+
         Request request =
                 createSubscriptionPositionRequest(positionType, subscriptionName,
                         PropertiesUtils.getSubscriptionPositionResourcePath());
 
         return executeRequest(request);
     }
-
 
     /**
      * Get logs.
@@ -108,6 +115,8 @@ public class StreamProxyClient extends DefaultClient implements StreamProxy {
      */
     public String getLogs(String logsPosition, long limit, String subscriptionName)
             throws ClientException, ServiceException {
+
+        initStreamsProxyHost(subscriptionName);
 
         Request request =
                 createGetLogsRequest(logsPosition, limit, subscriptionName,
@@ -157,7 +166,7 @@ public class StreamProxyClient extends DefaultClient implements StreamProxy {
         request.setEncryptContent(encryptContent);
 
         request.addHeader("Content-Type", "application/json");
-        request.addHeader("Host", subscriptionName + ".c.163.com");
+        //request.addHeader("Host", subscriptionName + "." + "log.c.163.com");
         request.addHeader("User-Agent", PropertiesUtils.getUserAgent());
         StreamProxySigner streamProxySigner = createSigner();
         streamProxySigner.sign(request, CredentialsProvider.getCredentials());
@@ -209,7 +218,7 @@ public class StreamProxyClient extends DefaultClient implements StreamProxy {
         request.setEncryptContent(encryptContent);
 
         request.addHeader("Content-Type", "application/json");
-        request.addHeader("Host", subscriptionName + ".c.163.com");
+        //request.addHeader("Host", subscriptionName + "." + "log.c.163.com");
         request.addHeader("User-Agent", PropertiesUtils.getUserAgent());
         StreamProxySigner streamProxySigner = createSigner();
         streamProxySigner.sign(request, CredentialsProvider.getCredentials());

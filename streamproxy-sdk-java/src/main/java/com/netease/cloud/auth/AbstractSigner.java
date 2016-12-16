@@ -65,7 +65,7 @@ public abstract class AbstractSigner implements Signer {
      * Computes an RFC 2104-compliant HMAC signature for an array of bytes and returns the result as
      * a Base64 encoded string.
      * 
-     * @param data Data needed to sign.
+     * @param stringData Data needed to sign.
      * @param key The key to sign data.
      * @param algorithm The algorithm to sign data.
      * @return byte[] of Signed string.
