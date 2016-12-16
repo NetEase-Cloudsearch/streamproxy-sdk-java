@@ -1,0 +1,8 @@
+com.netease.cloud.auth
+com.netease.cloud.client
+com.netease.cloud.config
+com.netease.cloud.exception
+com.netease.cloud.http
+com.netease.cloud.test
+com.netease.cloud.util
+com.netease.cloud.util.json
